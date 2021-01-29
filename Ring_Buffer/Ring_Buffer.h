@@ -20,7 +20,7 @@
  * rb_set_X         <-- Sets a desired element within the buffer
  *
  * Code Skeleton provided by Dr Petruska for MEGN 540, Mechatronics
- * Code Details Provided by:  [ YOUR NAME ]
+ * Code Details Provided by:  [ Nick Fischer ]
  * Code Last Modified:  1/15/2021
  * */
 

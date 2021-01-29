@@ -365,4 +365,3 @@ int main(void)
     printf("Score: %2.1f out of 75\n",(float)score/35.0*75);
 
 }
-

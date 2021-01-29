@@ -35,7 +35,7 @@ uint8_t rb_length_F( const struct Ring_Buffer_F* p_buf)
 }
 uint8_t rb_length_C( const struct Ring_Buffer_C* p_buf)
 {
-    // your code here!
+    // FIXME your code here!
     // make sure to use the correct mask!
 
     return 0;
@@ -48,7 +48,7 @@ void rb_push_back_F( struct Ring_Buffer_F* p_buf, float value)
     // Increment the end index and wrap using the mask.
     // If the end equals the start increment the start index
 
-    // your code here!
+    // FIXME your code here!
 
 }
 void rb_push_back_C( struct Ring_Buffer_C* p_buf, char value)
@@ -57,7 +57,7 @@ void rb_push_back_C( struct Ring_Buffer_C* p_buf, char value)
     // Increment the end index and wrap using the mask.
     // If the end equals the start increment the start index
 
-    // your code here!
+    // FIXME your code here!
 }
 
 /* Append element to front and lengthen */
@@ -67,7 +67,7 @@ void rb_push_front_F( struct Ring_Buffer_F* p_buf, float value)
     // If the end equals the start decrement the end index
     // Set the value at the start index as desired.
 
-    // your code here!
+    // FIXME your code here!
 
 }
 void rb_push_front_C( struct Ring_Buffer_C* p_buf, char value)
@@ -76,7 +76,7 @@ void rb_push_front_C( struct Ring_Buffer_C* p_buf, char value)
     // If the end equals the start decrement the end index
     // Set the value at the start index as desired.
 
-    // your code here!
+    // FIXME your code here!
 
 }
 
@@ -88,7 +88,7 @@ float rb_pop_back_F( struct Ring_Buffer_F* p_buf)
     // 	  return value at at end
     // else return zero if your lis is length zero
 
-    // your code here!
+    // FIXME your code here!
     return 0;
 }
 char  rb_pop_back_C( struct Ring_Buffer_C* p_buf)
@@ -98,7 +98,7 @@ char  rb_pop_back_C( struct Ring_Buffer_C* p_buf)
     // 	  return value at at end
     // else return zero if list is length zero
 
-    // your code here!
+    // FIXME your code here!
     return 0;
 }
 
@@ -111,7 +111,7 @@ float rb_pop_front_F( struct Ring_Buffer_F* p_buf)
     //    return value
     // else return zero if length of list is zero
 
-    // your code here!
+    // FIXME your code here!
     return 0;
 
 }
@@ -123,7 +123,7 @@ char  rb_pop_front_C( struct Ring_Buffer_C* p_buf)
     //    return value
     // else return zero if length of list is zero
 
-    // your code here!
+    // FIXME your code here!
     return 0;
 }
 
@@ -132,14 +132,14 @@ float rb_get_F( const struct Ring_Buffer_F* p_buf, uint8_t index)
 {
     // return value at start + index wrapped properly
 
-    // your code here!
+    // FIXME your code here!
     return 0;
 }
 char  rb_get_C( const struct Ring_Buffer_C* p_buf, uint8_t index)
 {
     // return value at start + index wrapped properly
-
-    // your code here!
+    char return_val;
+    // FIXME your code here!
     return 0;
 }
 
@@ -151,13 +151,13 @@ void  rb_set_F( struct Ring_Buffer_F* p_buf, uint8_t index, float value)
 {
     // set value at start + index wrapped properly
 
-    // your code here!
+    // FIXME your code here!
 }
 void  rb_set_C( struct Ring_Buffer_C* p_buf, uint8_t index, char value)
 {
     // set value at start + index wrapped properly
 
-    // your code here!
+    // FIXME your code here!
 }
 
 /*

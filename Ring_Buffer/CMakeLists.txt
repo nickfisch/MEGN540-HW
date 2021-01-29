@@ -1,7 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.17)
+project(Ring_Buffer C)
 
-# set the project name
-project(RingBuffer)
+set(CMAKE_C_STANDARD 99)
 
-# add the executable
-add_executable(ringbuffer main.c Ring_Buffer.c)
+add_executable(Ring_Buffer main.c Ring_Buffer.c Ring_Buffer.h)
