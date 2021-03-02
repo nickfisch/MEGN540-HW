@@ -78,27 +78,27 @@ void Filter_SetTo( Filter_Data_t* p_filt, float amount )
  */
 float Filter_Value( Filter_Data_t* p_filt, float value)
 {
-    float ret_val;
-    float out_sum = 0;
-    float in_sum = 0;
+    float ret_val=0;
 
     /* Update the filter*/
     // push value to front of input
     rb_push_front_F(&p_filt->in_list, value);
     rb_pop_back_F(&p_filt->in_list);
 
-    for (int i = 1; i <= rb_length_F(&p_filt->denominator); ++i) {
-        out_sum += rb_get_F(&p_filt->denominator, i) * rb_get_F(&p_filt->out_list, i-1);
+    for (int i = 1; i <= _filter_order; ++i) {
+        ret_val -= rb_get_F(&p_filt->denominator, i) * rb_get_F(&p_filt->out_list, i-1);
     }
 
-    for (int i = 0; i < rb_length_F(&p_filt->numerator); ++i) {
-        in_sum += rb_get_F(&p_filt->numerator, i) * rb_get_F(&p_filt->in_list, i);
+    for (int i = 0; i <= _filter_order; ++i) {
+        ret_val += rb_get_F(&p_filt->numerator, i) * rb_get_F(&p_filt->in_list, i);
     }
-    ret_val = (in_sum - out_sum)/rb_get_F(&p_filt->denominator, 0);
+    ret_val /= rb_get_F(&p_filt->denominator, 0);
 
+    // push new out value to the front of the out_list
     rb_push_front_F(&p_filt->out_list, ret_val);
     rb_pop_back_F(&p_filt->out_list);
 
+    last_filter_val = ret_val;
     return ret_val;
 }
 
@@ -108,16 +108,5 @@ float Filter_Value( Filter_Data_t* p_filt, float value)
  */
 float Filter_Last_Output( Filter_Data_t* p_filt )
 {
-    float retval;
-    float out_sum;
-    float in_sum;
-    for (int i = 1; i <= rb_length_F(&p_filt->denominator); ++i) {
-        out_sum += rb_get_F(&p_filt->denominator, i) * rb_get_F(&p_filt->out_list, _filter_order - i);
-    }
-    for (int i = 0; i < rb_length_F(&p_filt->numerator); ++i) {
-        in_sum += rb_get_F(&p_filt->numerator, i) * rb_get_F(&p_filt->in_list, _filter_order-i);
-    }
-    retval = (in_sum - out_sum)/rb_get_F(&p_filt->denominator, 0);
-
-    return retval;
+    return last_filter_val;
 }
