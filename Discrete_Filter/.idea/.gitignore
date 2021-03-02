@@ -2,7 +2,11 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
+<<<<<<< HEAD
 /../../../../../../:\MEGN_540-Mechatronics\nickfisch_MEGN540-HW\MEGN540-HW\Discrete_Filter\.idea/dataSources/
+=======
+/../../../../../../../:\Users\nick9\Mines Git\MEGN540-HW\Discrete_Filter\.idea/dataSources/
+>>>>>>> origin/main
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
