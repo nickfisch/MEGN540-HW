@@ -88,15 +88,15 @@ float Filter_Value( Filter_Data_t* p_filt, float value)
     rb_pop_back_F(&p_filt->in_list);
 
     for (int i = 1; i <= rb_length_F(&p_filt->denominator); ++i) {
-        out_sum += rb_get_F(&p_filt->denominator, i) * rb_get_F(&p_filt->out_list, _filter_order-i-1);
+        out_sum += rb_get_F(&p_filt->denominator, i) * rb_get_F(&p_filt->out_list, i-1);
     }
 
     for (int i = 0; i < rb_length_F(&p_filt->numerator); ++i) {
-        in_sum += rb_get_F(&p_filt->numerator, i) * rb_get_F(&p_filt->in_list, _filter_order-i);
+        in_sum += rb_get_F(&p_filt->numerator, i) * rb_get_F(&p_filt->in_list, i);
     }
     ret_val = (in_sum - out_sum)/rb_get_F(&p_filt->denominator, 0);
 
-    rb_push_front_F(&p_filt->out_list, value);
+    rb_push_front_F(&p_filt->out_list, ret_val);
     rb_pop_back_F(&p_filt->out_list);
 
     return ret_val;
