@@ -40,6 +40,9 @@
 
 #include "Ring_Buffer.h"
 
+int _filter_order;
+static int _num_last_vals;
+
 typedef struct { struct Ring_Buffer_F numerator; struct Ring_Buffer_F denominator; struct Ring_Buffer_F out_list; struct Ring_Buffer_F in_list; } Filter_Data_t;
 
 /**

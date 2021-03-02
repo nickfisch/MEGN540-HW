@@ -4,7 +4,7 @@
 // define constant masks for use later based on length chosen
 // these are global scope only to this c file
 const uint8_t RB_MASK_F = RB_LENGTH_F-1;
-const uint8_t RB_MASK_C = RB_LENGTH_C-1; 
+const uint8_t RB_MASK_C = RB_LENGTH_C-1;
 
 
 /* Initialization */
@@ -33,22 +33,27 @@ uint8_t rb_length_F( const struct Ring_Buffer_F* p_buf)
     uint8_t length = (p_buf->end_index - p_buf->start_index) & RB_MASK_F;
     return length;
 }
+
 uint8_t rb_length_C( const struct Ring_Buffer_C* p_buf)
 {
-    // FIXME your code here!
     // make sure to use the correct mask!
-
-    return 0;
+    uint8_t length = (p_buf->end_index - p_buf->start_index) & RB_MASK_C;
+    return length;
 }
 
 /* Append element to end and lengthen */
 void rb_push_back_F( struct Ring_Buffer_F* p_buf, float value)
-{   
+{
     // Put data at index end
     // Increment the end index and wrap using the mask.
     // If the end equals the start increment the start index
 
-    // FIXME your code here!
+    p_buf->buffer[p_buf->end_index] = value;
+    p_buf->end_index++;
+
+    if (p_buf->end_index > RB_MASK_F) p_buf->end_index = 0;
+
+    if (p_buf->end_index == p_buf->start_index) p_buf->start_index++;
 
 }
 void rb_push_back_C( struct Ring_Buffer_C* p_buf, char value)
@@ -57,7 +62,12 @@ void rb_push_back_C( struct Ring_Buffer_C* p_buf, char value)
     // Increment the end index and wrap using the mask.
     // If the end equals the start increment the start index
 
-    // FIXME your code here!
+    p_buf->buffer[p_buf->end_index] = value;
+    p_buf->end_index++;
+
+    if (p_buf->end_index > RB_MASK_C) p_buf->end_index = 0;
+
+    if (p_buf->end_index == p_buf->start_index) p_buf->start_index++;
 }
 
 /* Append element to front and lengthen */
@@ -67,8 +77,12 @@ void rb_push_front_F( struct Ring_Buffer_F* p_buf, float value)
     // If the end equals the start decrement the end index
     // Set the value at the start index as desired.
 
-    // FIXME your code here!
+    if (p_buf->start_index != 0) p_buf->start_index--;
+    else p_buf->start_index = RB_MASK_F;
 
+    if (p_buf->start_index == p_buf->end_index) p_buf->end_index--;
+
+    p_buf->buffer[p_buf->start_index] = value;
 }
 void rb_push_front_C( struct Ring_Buffer_C* p_buf, char value)
 {
@@ -76,8 +90,12 @@ void rb_push_front_C( struct Ring_Buffer_C* p_buf, char value)
     // If the end equals the start decrement the end index
     // Set the value at the start index as desired.
 
-    // FIXME your code here!
+    if (p_buf->start_index != 0) p_buf->start_index--;
+    else p_buf->start_index = RB_MASK_C;
 
+    if (p_buf->start_index == p_buf->end_index) p_buf->end_index--;
+
+    p_buf->buffer[p_buf->start_index] = value;
 }
 
 /* Remove element from end and shorten */
@@ -88,8 +106,15 @@ float rb_pop_back_F( struct Ring_Buffer_F* p_buf)
     // 	  return value at at end
     // else return zero if your lis is length zero
 
-    // FIXME your code here!
-    return 0;
+    float return_val;
+    if (p_buf->start_index != p_buf->end_index) {
+        if (p_buf->end_index > 0) p_buf->end_index--;
+        else p_buf->end_index = RB_MASK_F;
+
+        return_val = p_buf->buffer[p_buf->end_index];
+        return return_val;
+    }
+    else return 0.0;
 }
 char  rb_pop_back_C( struct Ring_Buffer_C* p_buf)
 {
@@ -98,8 +123,15 @@ char  rb_pop_back_C( struct Ring_Buffer_C* p_buf)
     // 	  return value at at end
     // else return zero if list is length zero
 
-    // FIXME your code here!
-    return 0;
+    float return_val;
+    if (p_buf->start_index != p_buf->end_index) {
+        if (p_buf->end_index > 0) p_buf->end_index--;
+        else p_buf->end_index = RB_MASK_C;
+
+        return_val = p_buf->buffer[p_buf->end_index];
+        return return_val;
+    }
+    else return 0.0;
 }
 
 /* Remove element from start and shorten */
@@ -111,8 +143,14 @@ float rb_pop_front_F( struct Ring_Buffer_F* p_buf)
     //    return value
     // else return zero if length of list is zero
 
-    // FIXME your code here!
-    return 0;
+    float return_val = p_buf->buffer[p_buf->start_index];
+    if (p_buf->start_index != p_buf->end_index) {
+        if (p_buf->start_index < RB_MASK_F) p_buf->start_index++;
+        else p_buf->start_index = 0;
+
+        return return_val;
+    }
+    else return 0.0;
 
 }
 char  rb_pop_front_C( struct Ring_Buffer_C* p_buf)
@@ -123,8 +161,14 @@ char  rb_pop_front_C( struct Ring_Buffer_C* p_buf)
     //    return value
     // else return zero if length of list is zero
 
-    // FIXME your code here!
-    return 0;
+    float return_val = p_buf->buffer[p_buf->start_index];
+    if (p_buf->start_index != p_buf->end_index) {
+        if (p_buf->start_index < RB_MASK_C) p_buf->start_index++;
+        else p_buf->start_index = 0;
+
+        return return_val;
+    }
+    else return 0.0;
 }
 
 /* access element */
@@ -132,32 +176,47 @@ float rb_get_F( const struct Ring_Buffer_F* p_buf, uint8_t index)
 {
     // return value at start + index wrapped properly
 
-    // FIXME your code here!
-    return 0;
+    int new_index = p_buf->start_index + index;
+    if (new_index > RB_MASK_F)  new_index = new_index - RB_LENGTH_F;
+
+    float return_val = p_buf->buffer[new_index];
+
+    return return_val;
 }
+
 char  rb_get_C( const struct Ring_Buffer_C* p_buf, uint8_t index)
 {
     // return value at start + index wrapped properly
-    char return_val;
-    // FIXME your code here!
-    return 0;
+
+    int new_index = p_buf->start_index + index;
+    if (new_index > RB_MASK_C)  new_index = new_index - RB_LENGTH_C;
+
+    float return_val = p_buf->buffer[new_index];
+
+    return return_val;
 }
 
-/* set element - This behavior is 
-   poorly defined if inedex is outside of active length.
-   Use of the push_back or push_front methods are prefered.
+/* set element - This behavior is
+   poorly defined if index is outside of active length.
+   Use of the push_back or push_front methods are preferred.
 */
 void  rb_set_F( struct Ring_Buffer_F* p_buf, uint8_t index, float value)
 {
     // set value at start + index wrapped properly
 
-    // FIXME your code here!
+    int new_index = p_buf->start_index + index;
+    if (new_index > RB_MASK_F)  new_index = new_index - RB_LENGTH_F;
+
+    p_buf->buffer[new_index] = value;
 }
 void  rb_set_C( struct Ring_Buffer_C* p_buf, uint8_t index, char value)
 {
     // set value at start + index wrapped properly
 
-    // FIXME your code here!
+    int new_index = p_buf->start_index + index;
+    if (new_index > RB_MASK_C)  new_index = new_index - RB_LENGTH_C;
+
+    p_buf->buffer[new_index] = value;
 }
 
 /*
@@ -195,4 +254,3 @@ void rb_print_data_C(struct Ring_Buffer_C *p_buf)
     printf("-------END CHAR RINGBUFFER INFO---------\n\n");
 
 }
-
