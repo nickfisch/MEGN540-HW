@@ -30,6 +30,7 @@
 
 # Executables
 #*.exe
+*.exe
 *.out
 *.app
 *.i*86
@@ -80,10 +81,12 @@ dkms.conf
 
 # Executables
 #*.exe
+*.exe
 *.out
 *.app
 
 # **/cmake-build-debug
+**/cmake-build-debug
 **/CMakeCache.txt
 **/cmake_install.cmake
 **/install_manifest.txt
