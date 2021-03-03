@@ -47,8 +47,8 @@ void  Filter_ShiftBy( Filter_Data_t* p_filt, float shift_amount )
 {
     int i;
     for (i = 0; i <= _filter_order; ++i) {
-        rb_set_F(&p_filt->in_list, i, shift_amount );
-        rb_set_F(&p_filt->out_list, i, shift_amount);
+        rb_set_F(&p_filt->in_list, i, rb_get_F(&p_filt->in_list,i)+shift_amount );
+        rb_set_F(&p_filt->out_list, i, rb_get_F(&p_filt->out_list,i)+shift_amount);
     }
     return;
 }
