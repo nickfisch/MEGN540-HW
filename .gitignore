@@ -29,7 +29,6 @@
 *.dylib
 
 # Executables
-#*.exe
 *.exe
 *.out
 *.app
@@ -80,12 +79,10 @@ dkms.conf
 *.lib
 
 # Executables
-#*.exe
 *.exe
 *.out
 *.app
 
-# **/cmake-build-debug
 **/cmake-build-debug
 **/CMakeCache.txt
 **/cmake_install.cmake
